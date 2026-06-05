@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>index</title>
+        <style type="text/css">
+            @page {
+                size: letter;
+                margin: 2cm;
+            }
+            body {
+                font-family: Helvetica, Arial, sans-serif;
+                color: #333;
+            }
+            .tabla-ventas {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            .tabla-ventas th, .tabla-ventas td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            .tabla-ventas th {
+                background-color: #f2f2f2;
+            }
+            .venta-click {
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+            
+            .venta-click:hover {
+                background-color: #f5f5f5;
+            }
+            .btn-registrar {
+                background-color: #f2f2f2;
+                color: gray;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.2s ease, transform 0.1s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px; 
+                box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            }
+        
+            .btn-registrar:hover {
+                background-color: #222222;
+            }
+        
+            .btn-registrar:active {
+                transform: scale(0.98); 
+            }
+        
+            .btn-registrar .icono {
+                font-size: 18px;
+                line-height: 1;
+            }
+        </style>
+    </head>
+<body>
+
+    <div class="header">
+        <h1>LISTADO DE VENTAS</h1>
+    </div>
+
+    <h3>Ventas</h3>
+    <table class="tabla-ventas">
+        <thead>
+            <tr>
+                <th>Venta</th>
+                <th>Fecha</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in VentasHtml %}       
+                <tr data-href="/venta/{{venta.id}}/pdf/" class="venta-click">
+                    <td>{{ venta.id }}</td>
+                    <td>{{ venta.date|date:"Y-m-d H:i" }}</td>
+                    <td>S/. {{ venta.total }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3" style="text-align: center; color: #777;">No hay ventas registradas.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="button" class="btn-registrar" onclick="window.location.href='/admin/SisVentas/sale/add/'">
+        <span class="icono">+</span> Registrar Venta
+    </button>
+</body>
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const filas = document.querySelectorAll("tr[data-href]");
+        
+        filas.forEach(fila => {
+            fila.addEventListener("click", () => {
+                window.location.href = fila.dataset.href;
+            });
+        });
+    });
+</script>

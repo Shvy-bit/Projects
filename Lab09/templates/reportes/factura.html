@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% if pdf_title %}{{ pdf_title }}{% else %}PDF{% endif %}</title>
+        <style type="text/css">
+            @page {
+                size: letter;
+                margin: 2cm;
+            }
+            body {
+                font-family: Helvetica, Arial, sans-serif;
+                color: #333;
+            }
+            .tabla-productos {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            .tabla-productos th, .tabla-productos td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            .tabla-productos th {
+                background-color: #f2f2f2;
+            }
+            .total {
+                text-align: right;
+                margin-top: 20px;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+<body>
+
+    <div class="header">
+        <h1>COMPROBANTE DE VENTA</h1>
+        <p><strong>N° de Venta:</strong> {{ venta.id }}</p>
+        <p><strong>Cliente:</strong> {{ venta.client.client_name }} 
+            {% if venta.client.whoulesaler %}(Mayorista){% endif %}</p>
+            <p><strong>Atendido por:</strong> {{ venta.user.user_name }}</p>
+        <p><strong>Fecha:</strong> {{ venta.date|date:"Y-m-d H:i" }}</p>
+    </div>
+
+    <h3>Productos</h3>
+    <table class="tabla-productos">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unit.</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ detalle.product.product_name }}</td>
+                <td>{{ detalle.amount }}</td>
+                <td>S/. {{ detalle.price_unit }}</td>
+                <td>S/. {{ detalle.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total">
+        TOTAL A PAGAR: S/. {{ venta.total }}
+    </div>
+
+</body>
+</html>
