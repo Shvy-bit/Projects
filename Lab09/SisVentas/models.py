@@ -37,7 +37,8 @@ class Sale(models.Model):
         self.total = total or 0.00
         self.save()
     def __str__(self):
-        return f"Venta {self.id} - Total: {self.total} ({self.date})"
+        date = self.date.strftime("%Y-%m-%d - %H:%M")
+        return f"Venta {self.id} - Total: {self.total} | ({date})"
     
 class Sale_detail(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
