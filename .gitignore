@@ -22,5 +22,5 @@ rad.json
 #Test results file
 TestResults.xml
 venv/
-*.sqlite3
+.env
 __pycache__/

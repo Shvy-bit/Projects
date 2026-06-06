@@ -5,11 +5,30 @@ from django.shortcuts import get_object_or_404
 from xhtml2pdf import pisa
 from django.shortcuts import render
 
+from django.core.mail import EmailMessage
+
 from .models import Sale
 
 def index(request):
     ventas = Sale.objects.all()
     return render(request, 'index.html', {'VentasHtml': ventas})
+
+def send(request , sale_id):
+    venta = get_object_or_404(Sale, id=sale_id)
+
+    pdf = DetalleDeVentaPdf.as_view()
+    response = pdf(request, sale_id=sale_id)
+
+    pdf_bytes = response.content
+    email = EmailMessage(
+        subject='Comprobante de pago',
+        body=f'Adjuntamos el comprobante de pago del cliente {venta.client.client_name}',
+        from_email="jcusiq@unsa.edu.pe",
+        to=['comogeb679@brixozu.com']
+    )
+    email.attach(f'Venta_{venta.id}.pdf', pdf_bytes, 'application/pdf')
+    email.send()
+    return response
 
 class DetalleDeVentaPdf(View):
     def get(self, request, sale_id, *args, **kwargs):
