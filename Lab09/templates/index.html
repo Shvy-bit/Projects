@@ -75,6 +75,7 @@
                 <th>Venta</th>
                 <th>Fecha</th>
                 <th>Total</th>
+                <th>Enviar</th>
             </tr>
         </thead>
         <tbody>
@@ -83,6 +84,10 @@
                     <td>{{ venta.id }}</td>
                     <td>{{ venta.date|date:"Y-m-d H:i" }}</td>
                     <td>S/. {{ venta.total }}</td>
+                    <td><button onclick="window.location.href='send/venta/{{ venta.id }}/'">
+                            Enviar por Correo
+                        </button>
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
