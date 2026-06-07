@@ -49,7 +49,7 @@ Antes de empezar, informar que la Carpeta Lab09/Lab09 fue renombrada por 'config
     ```
     Pudiendo visualizarlo con el programa DB Browser al cargar el archivo 'db.sqlite3'
 
-    [Tablas](Readme/Tablas.png)
+    ![Tablas](Readme/Tablas.png)
 - #### Navegación para visualizar ventas
     Se creó una carpeta templates que contendrá [index.html](Lab09/templates/index.html) que se ejecutará al iniciar el servidor en la ruta principal.
     Tambien se creo un boton que redirige a crear ventas desde /admin que ofrece django, para poder acceder se necesita registrarse.
@@ -127,6 +127,7 @@ Antes de empezar, informar que la Carpeta Lab09/Lab09 fue renombrada por 'config
         path('', include('SisVentas.urls')), # Agregamos las urls de la aplicación
     ]
     ```
+    ![Listado de ventas](Readme/Html.png)
 - #### Implementar la impresion de pdfs y el envio de emails desde una aplicación Django
     Para lograr esto primero creamos la clase que creara el pdf en views con xhml2pdf, en base a los datos de una venta que se buscara según su id y luego usa una [plantilla](Lab09/templates/reportes/factura.html) en la cual se cargaran los datos 
     ```py
@@ -159,6 +160,7 @@ Antes de empezar, informar que la Carpeta Lab09/Lab09 fue renombrada por 'config
                 return HttpResponse('Ocurrió un error al generar el PDF', status=500)
             return response
     ```
+    ![Pdf de la venta 5](Readme/Pdf.png)
     Y luego creamos la funcion que utilizara la instancia de la clase para crear y enviar el pdf por email
     ```py
     from django.core.mail import EmailMessage
@@ -210,4 +212,4 @@ Antes de empezar, informar que la Carpeta Lab09/Lab09 fue renombrada por 'config
     {% empty %}
     ...
     ```
-    
+    ![Envio de email](Readme/SendEmail.png)
