@@ -53,7 +53,9 @@ Antes de empezar, informar que la Carpeta Lab09/Lab09 fue renombrada por 'config
 - #### Navegación para visualizar ventas
     Se creó una carpeta templates que contendrá [index.html](Lab09/templates/index.html) que se ejecutará al iniciar el servidor en la ruta principal.
     Tambien se creo un boton que redirige a crear ventas desde /admin que ofrece django, para poder acceder se necesita registrarse.
+    
     El usuario: user
+    
     La contraseña: 12341234
     ```html
     ...
